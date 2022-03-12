@@ -2,8 +2,8 @@
 using namespace std;
 int main()
 {
-	char s = 65;
-	cout<<s<<endl;
-	cout<<'A'<<endl;
+	char s;
+	cin>>s;
+	cout<<int(s)<<endl;
 	return 0;
-}
+} 
