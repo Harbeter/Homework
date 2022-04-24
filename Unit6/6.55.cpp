@@ -1,11 +1,10 @@
 #include<iostream>
+#include<ctime>
+#include<cstdlib>
 using namespace std;
 int main()
 {
-	int c;
-	if((c=cin.get())!=0)
-	{.
-		cout<<c;
-	}
+	srand(time(0));
+	cout<<rand();
 	return 0;
 }

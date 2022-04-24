@@ -2,10 +2,6 @@
 using namespace std;
 int main()
 {
-	int c;
-	if((c=cin.get())!=0)
-	{.
-		cout<<c;
-	}
+	//暂时跳过，还没学这个，以后再自学 
 	return 0;
 }
