@@ -4,27 +4,26 @@ using namespace std;
 int main()
 {
 	array <int,20> a;
-	int i=0,n=0;
-	while(1)
+	bool flag=1;
+	for(int i=0;i<20;i++)
 	{
 		cin>>a[i];
-		for(int j=0;j<i;j++)
-		{
-			if(a[i]==a[j])
-			{
-				n=1;
-			}
-			
-		}
-		if(n==0)
-		i++;
-		if(i==20)
-		break;
-		n=0;
 	}
 	for(int i=0;i<20;i++)
 	{
-		cout<<a[i]<<" ";
+		for(int j=0;j<i;j++)
+		{
+			if(a[j]==a[i])
+			{
+				flag=0;
+				break;
+			}
+		}
+		if(1==flag)
+		{
+			cout<<a[i]<<" ";
+		}
+		flag=1;
 	}
 	return 0;
 }

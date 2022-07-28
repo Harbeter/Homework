@@ -1,22 +1,20 @@
 #include<iostream>
 using namespace std;
-void f1(int a,int b,int c,int d)
+void f1(int n,char x,char y,char z)
 {
-	for(int i=a;i>1;i--)
+	if(n>0)
 	{
-		cout<<b<<"->"<<d<<endl;
+		f1(n-1,x,z,y);
+		cout<<x<<"->"<<z<<endl;
+		f1(n-1,y,x,z);
 	}
-	cout<<b<<"->"<<c<<endl;
-	for(int i=a;i>1;i--)
-	{
-		cout<<d<<"->"<<c<<endl;
-	}
-
 }
 int main()
 {
-	int a,b,c,d;
-	cin>>a>>b>>c>>d;
-	f1(a,b,c,d);
+	char x='1',y='2',z='3';
+	int n;
+	cin>>n;
+	int t=n;
+	f1(n,x,y,z);
 	return 0;
 }
