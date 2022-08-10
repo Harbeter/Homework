@@ -5,7 +5,7 @@ using namespace std;
 //输入/输出操作： 
 const int read=10;
 const int write=11;
-//输入和储存操作： 
+//载入和储存操作： 
 const int load=20;
 const int store=21;
 //算数运算符 
@@ -27,18 +27,17 @@ int main()
 	bool flag=1;
 	while(flag)
 	{
-	
 	array<int,100> memory={}; //内存
 	array<char,100> memorychar;//内存符号 
 	memorychar.fill('+');//初始化内存符号为'+'
 	int accumulator=0; //寄存器 
 	int instructionCounter=0; //当前内存地址 
+	int tempinstructionRegister=0; //临时储存指令，以便划分操作码和操作数 
 	int operationCode=0; //操作码
 	int operand =0; //操作数
 	int instructionRegister=0;//指令 
-	int testinstructionRegister=0;//防止99999插入指令 
+	int testinstructionRegister=0;//防止在最后99999插入指令 
 	char sign='+';//正负号 
-	Again:
 	start();
 	//输入指令
 	while(1) 
@@ -55,7 +54,7 @@ int main()
 		{
 			cout<<"Error Sign Input again."<<endl;
 		}
-		else if(instructionRegister>9999||instructionRegister<-9999)//验证代码正确性 
+		else if(testinstructionRegister>9999||testinstructionRegister<-9999)//验证代码正确性 
 		{
 			cout<<"Error code Input again."<<endl;
 		}
@@ -70,31 +69,31 @@ int main()
 	//处理指令 
 	for(int i=0;i<=instructionCounter;i++)//每次处理一行代码 
 	{
-		instructionCounter=memory[i];
-		operationCode=instructionCounter/100; //操作码
-		operand=instructionCounter%100; //操作数
+		tempinstructionRegister=memory[i];
+		operationCode=tempinstructionRegister/100; //操作码
+		operand=tempinstructionRegister%100; //操作数
 		switch(operationCode)//操作码的选择和处理 
 		{
-			case 10:
+			case 10://输入 
 				cout<<"? ";
 				cin>>memory[operand];
 				break;
-			case 11:
-				cout<<memorychar[operand]<<setfill('0')<<setw(4)<<memory[operand];
+			case 11://输出 
+				cout<<memory[operand]<<endl;
 				break;
-			case 20:
+			case 20://载入 
 				accumulator=memory[operand];
 				break;
-			case 21:
+			case 21://储存 
 				memory[operand]=accumulator;
 				break;
-			case 30:
+			case 30://加 
 				accumulator+=memory[operand];
 				break;
-			case 31:
+			case 31://减 
 				accumulator-=memory[operand];
 				break;
-			case 32:
+			case 32://除 
 				if(memory[operand]==0)
 				{
 					cout<<"*** Attempt to divide by zero ***"<<endl;
@@ -102,25 +101,25 @@ int main()
 				}
 				accumulator/=memory[operand];
 				break;
-			case 33:
+			case 33://乘 
 				accumulator*=memory[operand];
 				break;
-			case 40:
+			case 40://控制转移 
 				i=operand;
 				break;
-			case 41:
+			case 41://条件转移 
 				if(accumulator<0)
 				{
-					i=operand;
+					i=operand-1;//最后i要+1，所以要在这里-1。 
 				}
 				break;
-			case 42:
+			case 42://条件转移 
 				if(accumulator==0)
 				{
-					i=operand;
+					i=operand-1;
 				}
 				break;
-			case 43:
+			case 43://结束 
 				instructionCounter=i;
 				instructionRegister=4300;
 				break;	
